@@ -15,3 +15,7 @@ class TestPretend(object):
         x = stub(__iter__=lambda: iter([1, 2, 3]))
         iterator = iter(x)
         assert next(iterator) == 1
+
+    def test_add(self):
+        x = stub(__add__=lambda y: 2 + y)
+        assert x + 4 == 6

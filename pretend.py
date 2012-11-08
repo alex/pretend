@@ -2,6 +2,12 @@ class stub(object):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
-    def __iter__(self):
-        return self.__dict__["__iter__"]()
+    def _build_special(name):
+        def inner(self, *args, **kwargs):
+            return self.__dict__[name](*args, **kwargs)
+        inner.__name__ = name
+        return inner
+
+    __iter__ = _build_special("__iter__")
+    __add__ = _build_special("__add__")
 
