@@ -10,3 +10,5 @@ class stub(object):
 
     __iter__ = _build_special("__iter__")
     __add__ = _build_special("__add__")
+    __sub__ = _build_special("__sub__")
+    __mul__ = _build_special("__mul__")

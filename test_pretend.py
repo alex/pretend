@@ -1,3 +1,7 @@
+import operator
+
+import pytest
+
 from pretend import stub
 
 
@@ -16,6 +20,15 @@ class TestPretend(object):
         iterator = iter(x)
         assert next(iterator) == 1
 
-    def test_add(self):
-        x = stub(__add__=lambda y: 2 + y)
-        assert x + 4 == 6
+    @pytest.mark.parametrize("op", [
+        operator.add,
+        operator.sub,
+        operator.mul,
+    ])
+    def test_special_binops(self, op):
+        x = stub(
+            __add__=lambda y: 2 + y,
+            __sub__=lambda y: 2 - y,
+            __mul__=lambda y: 2 * y
+        )
+        assert op(x, 4) == op(2, 4)
