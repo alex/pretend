@@ -9,7 +9,14 @@ Pretend is a library to make stubbing with Python easier.
 What is stubbing?
 -----------------
 
-Stubbing is a technique for writing tests. You may hear the term mixed up with mocks, fakes, or doubles. Basically a stub is an object that returns pre-canned responses, rather than doing any computation.
+Stubbing is a technique for writing tests. You may hear the term mixed up with
+mocks, fakes, or doubles. Basically a stub is an object that returns pre-canned
+responses, rather than doing any computation.
+
+Martin Fowler does a good job explaining the terms in his `Mocks Aren't Stubs`_
+article.
+
+.. _`Mocks Aren't Stubs`: http://martinfowler.com/articles/mocksArentStubs.html
 
 How do I use ``pretend``?
 -------------------------
