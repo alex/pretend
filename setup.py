@@ -12,4 +12,11 @@ setup(
     author="Alex Gaynor",
     author_email="alex.gaynor@gmail.com",
     py_modules=["pretend"],
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Topic :: Software Development :: Testing",
+    ]
 )
