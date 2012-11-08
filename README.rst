@@ -60,7 +60,7 @@ Why is stubbing better?
 -----------------------
 
 Ideally stubbing tests how your system responds to a particular input, rather
-than what an API is used. Stubbing still requires you to write tests that check
+than which API is used. Stubbing still requires you to write tests that check
 the results of a computation, rather than looking for side effects. This
 doesn't always work though, so you do sometimes still need mocking (e.g.
 sometimes you really want to check for a side effect.)
