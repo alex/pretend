@@ -1,3 +1,8 @@
+import sys
+
+PY3K = sys.version_info >= (3,)
+
+
 class stub(object):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
@@ -19,7 +24,8 @@ class stub(object):
 
     __add__ = _build_special("__add__")
     __and__ = _build_special("__and__")
-    __div__ = _build_special("__div__")
+    if PY3K:
+        __div__ = _build_special("__div__")
     __lshift__ = _build_special("__lshift__")
     __mod__ = _build_special("__mod__")
     __mul__ = _build_special("__mul__")
@@ -27,4 +33,5 @@ class stub(object):
     __pow__ = _build_special("__pow__")
     __rshift__ = _build_special("__rshift__")
     __sub__ = _build_special("__sub__")
+    __truediv__ = _build_special("__truediv__")
     __xor__ = _build_special("__xor__")

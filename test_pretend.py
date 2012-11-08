@@ -1,9 +1,10 @@
+from __future__ import print_function
+
 import operator
-import sys
 
 import pytest
 
-from pretend import stub
+from pretend import stub, PY3K
 
 
 class TestPretend(object):
@@ -31,7 +32,6 @@ class TestPretend(object):
 
         (operator.add, "__add__"),
         (operator.and_, "__and__"),
-        (operator.truediv if sys.version_info >= (3,) else operator.div, "__div__"),
         (operator.lshift, "__lshift__"),
         (operator.mod, "__mod__"),
         (operator.mul, "__mul__"),
@@ -39,6 +39,7 @@ class TestPretend(object):
         (operator.pow, "__pow__"),
         (operator.rshift, "__rshift__"),
         (operator.sub, "__sub__"),
+        (operator.truediv, "__truediv__"),
         (operator.xor, "__xor__"),
     ])
     def test_special_binops(self, func, op):
@@ -47,3 +48,10 @@ class TestPretend(object):
         })
         assert func(x, 4) == func(2, 4)
         assert func(x, 2) == func(2, 2)
+
+    @pytest.mark.skipif(lambda self: PY3K)
+    def test_div(self):
+        x = stub(
+            __div__=lambda y: 4
+        )
+        assert x / 3 == 4
