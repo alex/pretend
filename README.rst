@@ -27,6 +27,19 @@ the value ``"US"``. Unlike mocks, ``x`` will not respond to any other attribute
 or methods, nor does it have any methods for making assertions about what you
 accessed.
 
+If you want to add a method to the stub, simple provide a function to it:
+
+.. code:: pycon
+
+    >>> from pretend import stub
+    >>> x = stub(country_code=lambda: "US")
+    >>> x.country_code()
+    'US'
+
+It's important to note that functions on stubs *do not* take a ``self``
+argument, this is because stubs should be returning pre-canned values, not
+doing computations.
+
 Why is stubbing better?
 -----------------------
 
