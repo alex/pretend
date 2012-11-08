@@ -13,7 +13,7 @@ How do I use ``pretend``?
 
 It's easy, the ``stub`` function makes it easy to create a stub:
 
-.. code:: python
+.. code:: pycon
 
     >>> from pretend import stub
     >>> x = stub(country_code="US")
