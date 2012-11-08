@@ -11,5 +11,5 @@ setup(
     long_description=readme,
     author="Alex Gaynor",
     author_email="alex.gaynor@gmail.com",
-    packages=["pretend"],
+    py_modules=["pretend"],
 )
