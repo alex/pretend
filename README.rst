@@ -1,0 +1,46 @@
+pretend
+=======
+
+Pretend is a library to make stubbing with Python easier.
+
+What is stubbing?
+-----------------
+
+Stubbing is a technique for writing tests. You may hear the term mixed up with mocks, fakes, or doubles. Basically a stub is an object that returns pre-canned responses, rather than doing any computation.
+
+How do I use ``pretend``?
+-------------------------
+
+It's easy, the ``stub`` function makes it easy to create a stub:
+
+.. code:: python
+
+    >>> from pretend import stub
+    >>> x = stub(country_code="US")
+    >>> some_function(x)
+
+Here ``x`` will be an object with a single attribute ``country_code`` which has
+the value ``"US"``. Unlike mocks, ``x`` will not respond to any other attribute
+or methods, nor does it have any methods for making assertions about what you
+accessed.
+
+Why is stubbing better?
+-----------------------
+
+Ideally stubbing tests how your system responds to a particular input, rather
+than what an API is used. Stubbing still requires you to write tests that check
+the results of a computation, rather than looking for side effects. This
+doesn't always work though, so you do sometimes still need mocking (e.g.
+sometimes you really want to check for a side effect.)
+
+How do I get my stub into place?
+--------------------------------
+
+If you come from other mocking libraries you're probably used to a ``patch``
+method to put a mock in place. ``pretend`` doesn't include anything like this,
+a) we believe it's better, where possible, to pass stubs as arguments rather
+than monkey patch them into place, b) we believe that when you do need to
+monkey patch something into place you should use something provided by your
+testing tool. ``py.test`` includes `such a tool`_.
+
+.. _`such a tool`: http://pytest.org/latest/monkeypatch.html
