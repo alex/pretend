@@ -44,3 +44,9 @@ monkey patch something into place you should use something provided by your
 testing tool. ``py.test`` includes `such a tool`_.
 
 .. _`such a tool`: http://pytest.org/latest/monkeypatch.html
+
+Who wrote this?
+---------------
+
+``pretend`` is by Alex Gaynor, who was just tired of not having a good stubbing
+tool for Python. The name is from Idan Gazit.
