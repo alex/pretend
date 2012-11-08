@@ -18,6 +18,15 @@ article.
 
 .. _`Mocks Aren't Stubs`: http://martinfowler.com/articles/mocksArentStubs.html
 
+How do I install ``pretend``?
+-----------------------------
+
+It's easy with ``pip``!
+
+.. code:: bash
+
+    $ pip install pretend
+
 How do I use ``pretend``?
 -------------------------
 
