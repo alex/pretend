@@ -20,15 +20,29 @@ class TestPretend(object):
         iterator = iter(x)
         assert next(iterator) == 1
 
-    @pytest.mark.parametrize("op", [
-        operator.add,
-        operator.sub,
-        operator.mul,
+    @pytest.mark.parametrize(("func", "op"), [
+        (operator.lt, "__lt__"),
+        (operator.le, "__le__"),
+        (operator.eq, "__eq__"),
+        (operator.ne, "__ne__"),
+        (operator.gt, "__gt__"),
+        (operator.ge, "__ge__"),
+
+        (operator.add, "__add__"),
+        (operator.and_, "__and__"),
+        (operator.div, "__div__"),
+        (operator.lshift, "__lshift__"),
+        (operator.mod, "__mod__"),
+        (operator.mul, "__mul__"),
+        (operator.or_, "__or__"),
+        (operator.pow, "__pow__"),
+        (operator.rshift, "__rshift__"),
+        (operator.sub, "__sub__"),
+        (operator.xor, "__xor__"),
     ])
-    def test_special_binops(self, op):
-        x = stub(
-            __add__=lambda y: 2 + y,
-            __sub__=lambda y: 2 - y,
-            __mul__=lambda y: 2 * y
-        )
-        assert op(x, 4) == op(2, 4)
+    def test_special_binops(self, func, op):
+        x = stub(**{
+            op: lambda y: func(2, y)
+        })
+        assert func(x, 4) == func(2, 4)
+        assert func(x, 2) == func(2, 2)
