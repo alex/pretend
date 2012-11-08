@@ -1,4 +1,5 @@
 import operator
+import sys
 
 import pytest
 
@@ -30,7 +31,7 @@ class TestPretend(object):
 
         (operator.add, "__add__"),
         (operator.and_, "__and__"),
-        (operator.div, "__div__"),
+        (operator.truediv if sys.version_info >= (3,) else operator.div, "__div__"),
         (operator.lshift, "__lshift__"),
         (operator.mod, "__mod__"),
         (operator.mul, "__mul__"),
