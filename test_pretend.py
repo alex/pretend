@@ -32,6 +32,8 @@ class TestPretend(object):
 
         (operator.add, "__add__"),
         (operator.and_, "__and__"),
+        (divmod, "__divmod__"),
+        (operator.floordiv, "__floordiv__"),
         (operator.lshift, "__lshift__"),
         (operator.mod, "__mod__"),
         (operator.mul, "__mul__"),

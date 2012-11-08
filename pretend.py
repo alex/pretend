@@ -24,8 +24,10 @@ class stub(object):
 
     __add__ = _build_special("__add__")
     __and__ = _build_special("__and__")
+    __divmod__ = _build_special("__divmod__")
     if PY3K:
         __div__ = _build_special("__div__")
+    __floordiv__ = _build_special("__floordiv__")
     __lshift__ = _build_special("__lshift__")
     __mod__ = _build_special("__mod__")
     __mul__ = _build_special("__mul__")
