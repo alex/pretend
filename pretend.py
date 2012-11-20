@@ -39,18 +39,18 @@ def _build_magic_dispatcher(method):
 
 
 class stub(object):
-    _classes = {}
+    _classes_cache = {}
 
     def __new__(cls, **kwargs):
         magic_methods_present = MAGIC_METHODS.intersection(kwargs)
-        if magic_methods_present not in cls._classes:
+        if magic_methods_present not in cls._classes_cache:
             attrs = dict(
                 (method, _build_magic_dispatcher(method))
                 for method in magic_methods_present
             )
             attrs["__module__"] = cls.__module__
-            cls._classes[magic_methods_present] = type("stub", (cls,), attrs)
-        new_cls = cls._classes[magic_methods_present]
+            cls._classes_cache[magic_methods_present] = type("stub", (cls,), attrs)
+        new_cls = cls._classes_cache[magic_methods_present]
         return super(stub, new_cls).__new__(new_cls, **kwargs)
 
     def __init__(self, **kwargs):
