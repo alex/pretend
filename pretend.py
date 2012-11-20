@@ -44,7 +44,6 @@ class stub(object):
     def __new__(cls, **kwargs):
         magic_methods_present = MAGIC_METHODS.intersection(kwargs)
         if magic_methods_present not in cls._classes:
-            attrs = {}
             attrs = dict(
                 (method, _build_magic_dispatcher(method))
                 for method in magic_methods_present
