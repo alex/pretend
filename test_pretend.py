@@ -15,10 +15,33 @@ class TestPretend(object):
         x = stub(meth=lambda x, y: x + y)
         assert x.meth(3, 4) == 7
 
-    def test_iterable(self):
+    def test_iter(self):
         x = stub(__iter__=lambda: iter([1, 2, 3]))
         iterator = iter(x)
         assert next(iterator) == 1
+
+    @pytest.mark.skipif("not PY3K")
+    def test_next(self):
+        x = stub(__next__=lambda: 12)
+        assert next(x) == 12
+
+    def test_contains(self):
+        x = stub(__contains__=lambda other: True)
+        assert "hello world" in x
+
+    @pytest.mark.skipif("PY3K")
+    def test_nonzero(self):
+        x = stub(__nonzero__=lambda: False)
+        assert not bool(x)
+
+    @pytest.mark.skipif("not PY3K")
+    def test_bool(self):
+        x = stub(__bool__=lambda: False)
+        assert not bool(x)
+
+    def test_len(self):
+        x = stub(__len__=lambda: 12)
+        assert len(x) == 12
 
     @pytest.mark.parametrize(("func", "op"), [
         (operator.lt, "__lt__"),
@@ -49,7 +72,7 @@ class TestPretend(object):
         assert func(x, 4) == func(2, 4)
         assert func(x, 2) == func(2, 2)
 
-    @pytest.mark.skipif(lambda self: PY3K)
+    @pytest.mark.skipif("PY3K")
     def test_div(self):
         x = stub(
             __div__=lambda y: 4

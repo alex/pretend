@@ -5,6 +5,9 @@ PY3K = sys.version_info >= (3,)
 
 methods = set([
     "__iter__",
+    "__len__",
+    "__contains__",
+
     "__lt__",
     "__le__",
     "__eq__",
@@ -27,7 +30,10 @@ methods = set([
     "__xor__",
 ])
 if PY3K:
+    methods.add("__next__")
+else:
     methods.add("__div__")
+    methods.add("__nonzero__")
 MAGIC_METHODS = frozenset(methods)
 del methods
 
