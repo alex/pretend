@@ -3,7 +3,7 @@ import sys
 PY3K = sys.version_info >= (3,)
 
 
-methods = frozenset([
+methods = set([
     "__iter__",
     "__lt__",
     "__le__",
