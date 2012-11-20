@@ -57,3 +57,8 @@ class TestPretend(object):
             __div__=lambda y: 4
         )
         assert x / 3 == 4
+
+    def test_missing_op_error(self):
+        x = stub()
+        with pytest.raises(TypeError):
+            x + 2
