@@ -29,6 +29,7 @@ methods = set([
 if PY3K:
     methods.add("__div__")
 MAGIC_METHODS = frozenset(methods)
+del methods
 
 
 def _build_magic_dispatcher(method):
