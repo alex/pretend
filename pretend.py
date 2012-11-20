@@ -31,6 +31,7 @@ methods = set([
 ])
 if PY3K:
     methods.add("__next__")
+    methods.add("__bool__")
 else:
     methods.add("__div__")
     methods.add("__nonzero__")
