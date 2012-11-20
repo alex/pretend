@@ -49,8 +49,9 @@ class stub(object):
                 for method in magic_methods_present
             )
             attrs["__module__"] = cls.__module__
-            cls = type("stub", (cls,), attrs)
-        return super(stub, cls).__new__(cls, **kwargs)
+            cls._classes[magic_methods_present] = type("stub", (cls,), attrs)
+        new_cls = cls._classes[magic_methods_present]
+        return super(stub, new_cls).__new__(new_cls, **kwargs)
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
