@@ -63,3 +63,13 @@ class stub(object):
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
+
+def raiser(exc):
+    if not (isinstance(exc, BaseException) or
+        isinstance(exc, type) and issubclass(exc, BaseException)):
+        raise TypeError("exc must be either an exception instance or class.")
+
+    def inner(*args, **kwargs):
+        raise exc
+    return inner
