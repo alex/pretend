@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from pretend import stub, PY3K
+from pretend import stub, raiser, PY3K
 
 
 class TestPretend(object):
@@ -14,6 +14,22 @@ class TestPretend(object):
     def test_function(self):
         x = stub(meth=lambda x, y: x + y)
         assert x.meth(3, 4) == 7
+
+    def test_call_raiser(self):
+        f = raiser(ValueError)
+        with pytest.raises(ValueError):
+            f()
+
+    def test_call_raiser_exc_value(self):
+        exc = ValueError(14)
+        f = raiser(exc)
+        with pytest.raises(ValueError) as exc_info:
+            f()
+        assert exc_info.value is exc
+
+    def test_non_exc_raiser(self):
+        with pytest.raises(TypeError):
+            raiser("test")
 
     def test_iter(self):
         x = stub(__iter__=lambda: iter([1, 2, 3]))
