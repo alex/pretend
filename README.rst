@@ -56,6 +56,22 @@ It's important to note that functions on stubs *do not* take a ``self``
 argument, this is because stubs should be returning pre-canned values, not
 doing computations.
 
+Exceptions with ``pretend``
+---------------------------
+
+Sometimes a method you want to stub doesn't return a value, but instead raises
+an exception. To make this easy, ``pretend`` provides a helper function,
+``raiser``, it can be used like so::
+
+    >>> from pretend import stub, raiser
+    >>> x = stub(func=raiser(ValueError))
+    >>> x.func()
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+      File "pretend.py", line 74, in inner
+        raise exc
+    ValueError
+
 Why is stubbing better?
 -----------------------
 
