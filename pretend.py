@@ -1,5 +1,6 @@
 import sys
 
+
 PY3K = sys.version_info >= (3,)
 
 
@@ -59,7 +60,7 @@ class stub(object):
             attrs["__module__"] = cls.__module__
             cls._classes_cache[magic_methods_present] = type("stub", (cls,), attrs)
         new_cls = cls._classes_cache[magic_methods_present]
-        return super(stub, new_cls).__new__(new_cls, **kwargs)
+        return super(stub, new_cls).__new__(new_cls)
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
