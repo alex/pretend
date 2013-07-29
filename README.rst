@@ -61,7 +61,9 @@ Exceptions with ``pretend``
 
 Sometimes a method you want to stub doesn't return a value, but instead raises
 an exception. To make this easy, ``pretend`` provides a helper function,
-``raiser``, it can be used like so::
+``raiser``, it can be used like so:
+
+.. code:: pycon
 
     >>> from pretend import stub, raiser
     >>> x = stub(func=raiser(ValueError))
