@@ -112,6 +112,9 @@ class TestCallRecorder(object):
 
         assert call() != []
 
+    def test_call_repr(self):
+        assert repr(call(1, 2, a=3)) == "<call(1, 2, a=3)>"
+
     def test_simple(self):
         f = call_recorder(lambda *args, **kwargs: 3)
         assert f() == 3
