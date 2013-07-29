@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from pretend import stub, raiser, PY3K
+from pretend import stub, raiser, call, call_recorder, PY3K
 
 
 class TestStub(object):
@@ -101,3 +101,20 @@ class TestRaiser(object):
     def test_non_exc_raiser(self):
         with pytest.raises(TypeError):
             raiser("test")
+
+
+class TestCallRecorder(object):
+    def test_call_eq(self):
+        assert call(a=2) == call(a=2)
+        assert not (call(a=2) != call(a=2))
+        assert call(a=2) != call(a=3)
+        assert not (call(a=2) == call(a=3))
+
+        assert call() != []
+
+    def test_simple(self):
+        f = call_recorder(lambda *args, **kwargs: 3)
+        assert f() == 3
+        assert f.calls == [
+            call()
+        ]

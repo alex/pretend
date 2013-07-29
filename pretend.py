@@ -1,3 +1,4 @@
+import functools
 import sys
 
 
@@ -73,4 +74,27 @@ def raiser(exc):
 
     def inner(*args, **kwargs):
         raise exc
+    return inner
+
+
+class call(object):
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+    def __eq__(self, other):
+        if not isinstance(other, call):
+            return NotImplemented
+        return self.args == other.args and self.kwargs == other.kwargs
+
+    def __ne__(self, other):
+        return not (self == other)
+
+
+def call_recorder(func):
+    @functools.wraps(func)
+    def inner(*args, **kwargs):
+        inner.calls.append(call(*args, **kwargs))
+        return func(*args, **kwargs)
+    inner.calls = []
     return inner

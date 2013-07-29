@@ -95,6 +95,19 @@ testing tool. ``py.test`` includes `such a tool`_.
 
 .. _`such a tool`: http://pytest.org/latest/monkeypatch.html
 
+What if I really need to record the calls?
+------------------------------------------
+
+If you really really need to, ``pretend`` includes a ``call_recorder`` utility:
+
+.. code:: pycon
+
+    >>> from pretend import call_recorder, call
+    >>> f = call_recorder(lambda a: a + 2)
+    >>> f(3)
+    5
+    >>> assert f.calls == [call(3)]
+
 Who wrote this?
 ---------------
 
