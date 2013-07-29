@@ -12,6 +12,8 @@ setup(
     author="Alex Gaynor",
     author_email="alex.gaynor@gmail.com",
     py_modules=["pretend"],
+    url="https://github.com/alex/pretend",
+    license="BSD",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
