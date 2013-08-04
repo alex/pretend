@@ -99,7 +99,7 @@ class call(object):
     def __repr__(self):
         args = ", ".join(map(repr, self.args))
         kwargs = ", ".join("%s=%r" % (k, v) for k, v in self.kwargs.items())
-        return "<call(%s%s%s)>" % (args, ", " if args or kwargs else "", kwargs)
+        return "<call(%s%s%s)>" % (args, ", " if args and kwargs else "", kwargs)
 
 
 def call_recorder(func):

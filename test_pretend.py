@@ -114,6 +114,7 @@ class TestCallRecorder(object):
 
     def test_call_repr(self):
         assert repr(call(1, 2, a=3)) == "<call(1, 2, a=3)>"
+        assert repr(call(a=2)) == "<call(a=2)>"
 
     def test_call_hash(self):
         c1 = call(a=2)
