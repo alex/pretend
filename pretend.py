@@ -90,6 +90,12 @@ class call(object):
     def __ne__(self, other):
         return not (self == other)
 
+    def __hash__(self):
+        return hash((
+            self.args,
+            frozenset(self.kwargs.items())
+        ))
+
     def __repr__(self):
         args = ", ".join(map(repr, self.args))
         kwargs = ", ".join("%s=%r" % (k, v) for k, v in self.kwargs.items())
