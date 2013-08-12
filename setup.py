@@ -5,7 +5,7 @@ with open("README.rst") as f:
     readme = f.read()
 
 setup(
-    version="1.0.4",
+    version="1.0.5",
     name="pretend",
     description="A library for stubbing in Python",
     long_description=readme,
