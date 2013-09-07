@@ -59,7 +59,9 @@ class stub(object):
                 for method in magic_methods_present
             )
             attrs["__module__"] = cls.__module__
-            cls._classes_cache[magic_methods_present] = type("stub", (cls,), attrs)
+            cls._classes_cache[magic_methods_present] = (
+                type("stub", (cls,), attrs)
+            )
         new_cls = cls._classes_cache[magic_methods_present]
         return super(stub, new_cls).__new__(new_cls)
 
@@ -68,8 +70,12 @@ class stub(object):
 
 
 def raiser(exc):
-    if not (isinstance(exc, BaseException) or
-        isinstance(exc, type) and issubclass(exc, BaseException)):
+    if (
+        not (
+            isinstance(exc, BaseException) or
+            isinstance(exc, type) and issubclass(exc, BaseException)
+        )
+    ):
         raise TypeError("exc must be either an exception instance or class.")
 
     def inner(*args, **kwargs):
@@ -99,7 +105,8 @@ class call(object):
     def __repr__(self):
         args = ", ".join(map(repr, self.args))
         kwargs = ", ".join("%s=%r" % (k, v) for k, v in self.kwargs.items())
-        return "<call(%s%s%s)>" % (args, ", " if args and kwargs else "", kwargs)
+        comma = ", " if args and kwargs else ""
+        return "<call(%s%s%s)>" % (args, comma, kwargs)
 
 
 def call_recorder(func):
