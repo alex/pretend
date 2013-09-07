@@ -84,6 +84,13 @@ class TestStub(object):
         with pytest.raises(TypeError):
             x + 2
 
+    def test_subscript(self):
+        x = stub(
+            __getitem__=lambda idx: idx
+        )
+        assert x[5] == 5
+        assert x[1, 2] == (1, 2)
+
 
 class TestRaiser(object):
     def test_call_raiser(self):

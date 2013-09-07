@@ -9,6 +9,7 @@ methods = set([
     "__iter__",
     "__len__",
     "__contains__",
+    "__getitem__",
 
     "__lt__",
     "__le__",
