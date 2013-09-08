@@ -91,6 +91,21 @@ class TestStub(object):
         assert x[5] == 5
         assert x[1, 2] == (1, 2)
 
+    def test_context_manager(self):
+        should_reraise = True
+        x = stub(
+            __enter__=lambda: 3,
+            __exit__=lambda exc_type, exc_value, tb: should_reraise
+        )
+        with x as value:
+            assert value == 3
+            raise ValueError
+        should_reraise = False
+        with pytest.raises(ValueError):
+            with x as value:
+                assert value == 3
+                raise ValueError
+
 
 class TestRaiser(object):
     def test_call_raiser(self):

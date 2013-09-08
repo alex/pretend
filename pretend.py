@@ -11,6 +11,9 @@ methods = set([
     "__contains__",
     "__getitem__",
 
+    "__enter__",
+    "__exit__",
+
     "__lt__",
     "__le__",
     "__eq__",
