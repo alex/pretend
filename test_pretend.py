@@ -91,6 +91,23 @@ class TestStub(object):
         assert x[5] == 5
         assert x[1, 2] == (1, 2)
 
+    def test_setitem(self):
+        d = {}
+        x = stub(
+            __setitem__=d.__setitem__
+        )
+        x[5] = 'a'
+        x['b'] = 6
+        assert d == {5: 'a', 'b': 6}
+
+    def test_delitem(self):
+        d = {5: 'a', 'b': 6}
+        x = stub(
+            __delitem__=d.__delitem__
+        )
+        del x['b']
+        assert d == {5: 'a'}
+
     def test_context_manager(self):
         should_reraise = True
         x = stub(

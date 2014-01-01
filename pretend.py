@@ -10,6 +10,8 @@ methods = set([
     "__len__",
     "__contains__",
     "__getitem__",
+    "__setitem__",
+    "__delitem__",
 
     "__enter__",
     "__exit__",
