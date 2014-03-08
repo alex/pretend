@@ -123,6 +123,17 @@ class TestStub(object):
                 assert value == 3
                 raise ValueError
 
+    def test_default_repr(self):
+        x = stub(a=10)
+
+        assert repr(x) == "<stub(a=10)>"
+
+    def test_custom_repr(self):
+        x = stub(id=300, __repr__=lambda: '<Something>')
+
+        assert x.id == 300
+        assert repr(x) == '<Something>'
+
 
 class TestRaiser(object):
     def test_call_raiser(self):

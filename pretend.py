@@ -36,6 +36,8 @@ methods = set([
     "__sub__",
     "__truediv__",
     "__xor__",
+
+    "__repr__",
 ])
 if PY3K:
     methods.add("__next__")
@@ -73,6 +75,12 @@ class stub(object):
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+
+    def __repr__(self):
+        return '<stub(%s)>' % ', '.join([
+            '%s=%r' % (key, val)
+            for key, val in self.__dict__.items()
+        ])
 
 
 def raiser(exc):
