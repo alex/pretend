@@ -36,6 +36,8 @@ methods = set([
     "__sub__",
     "__truediv__",
     "__xor__",
+
+    "__repr__",
 ])
 if PY3K:
     methods.add("__next__")
