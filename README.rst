@@ -43,7 +43,7 @@ the value ``"US"``. Unlike mocks, ``x`` will not respond to any other attribute
 or methods, nor does it have any methods for making assertions about what you
 accessed.
 
-If you want to add a method to the stub, simple provide a function to it:
+If you want to add a method to the stub, simply provide a function to it:
 
 .. code:: pycon
 
