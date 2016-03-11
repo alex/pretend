@@ -134,6 +134,11 @@ class TestStub(object):
         assert x.id == 300
         assert repr(x) == '<Something>'
 
+    def test_callable(self):
+        x = stub(__call__=lambda: 4)
+
+        assert x() == 4
+
 
 class TestRaiser(object):
     def test_call_raiser(self):

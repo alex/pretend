@@ -37,6 +37,7 @@ methods = set([
     "__truediv__",
     "__xor__",
 
+    "__call__",
     "__repr__",
 ])
 if PY3K:
