@@ -5,7 +5,6 @@ cache:
     directories:
         - $HOME/.cache/pip
 env:
-    - TOXENV=py26
     - TOXENV=py27
     - TOXENV=py33
     - TOXENV=py34
