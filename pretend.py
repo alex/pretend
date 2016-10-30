@@ -5,7 +5,7 @@ import sys
 PY3K = sys.version_info >= (3,)
 
 
-methods = set([
+methods = {
     "__iter__",
     "__len__",
     "__contains__",
@@ -39,7 +39,7 @@ methods = set([
 
     "__call__",
     "__repr__",
-])
+}
 if PY3K:
     methods.add("__next__")
     methods.add("__bool__")
