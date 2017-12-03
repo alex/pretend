@@ -27,4 +27,4 @@ install:
     - pip install tox
 
 script:
-    - tox
+    - tox -vv
