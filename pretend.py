@@ -131,3 +131,11 @@ def call_recorder(func):
         return func(*args, **kwargs)
     inner.calls = []
     return inner
+
+
+def call_recorder_all(ret):
+    def inner(*args, **kwargs):
+        inner.calls.append(call(*args, **kwargs))
+        return ret
+    inner.calls = []
+    return inner
