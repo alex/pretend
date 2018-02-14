@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from pretend import stub, raiser, call, call_recorder, PY3K
+from pretend import stub, raiser, call, call_recorder, call_recorder_all, PY3K
 
 
 class TestStub(object):
@@ -181,4 +181,11 @@ class TestCallRecorder(object):
         assert f() == 3
         assert f.calls == [
             call()
+        ]
+
+    def test_simple_all(self):
+        f = call_recorder_all(3)
+        assert f(1, name='2') == 3
+        assert f.calls == [
+            call(1, name='2')   
         ]
