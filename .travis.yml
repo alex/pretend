@@ -23,7 +23,8 @@ matrix:
         - env: TOXENV=pep8
 
 install:
+    - pip install -U pip setuptools virtualenv
     - pip install tox
 
 script:
-    - tox
+    - tox -vv
