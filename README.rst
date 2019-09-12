@@ -93,7 +93,7 @@ than monkey patch them into place, b) we believe that when you do need to
 monkey patch something into place you should use something provided by your
 testing tool. ``py.test`` includes `such a tool`_.
 
-.. _`such a tool`: http://pytest.org/latest/monkeypatch.html
+.. _`such a tool`: https://docs.pytest.org/en/latest/monkeypatch.html
 
 What if I really need to record the calls?
 ------------------------------------------
