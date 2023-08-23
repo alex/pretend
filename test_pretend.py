@@ -171,9 +171,16 @@ class TestMasquerade(object):
         assert f.calls == []
 
     def test_good_signature(self):
-        f = masquerade(dont_test_me_bro, None)
-        assert f(0, 1, kwarg0=1, kwarg1=None) is None
+        rv = stub()
+        f = masquerade(dont_test_me_bro, rv)
+        assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
+
+    def test_good_signature_handles_optional_args(self):
+        rv = stub()
+        f = masquerade(dont_test_me_bro, rv)
+        assert f(0, 1) is rv
+        assert f.calls == [call(0, 1)]
 
     def assert_callable(self):
         f = masquerade(dont_test_me_bro, lambda *args, **kwargs: 69)
