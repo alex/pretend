@@ -160,30 +160,59 @@ class TestCallRecorder(object):
         assert f() == 3
         assert f.calls == [call()]
 
-def dont_test_me_bro(arg0, arg1, kwarg0=None, kwarg1=1):
+def _test_func(arg0, arg1, kwarg0=None, kwarg1=1):
     pass
+
+class Klass():
+    def _test_method(self, arg0, arg1, kwarg0=None, kwarg1=1):
+        pass
+
+    @classmethod
+    def _test_class_method(cls, arg0, arg1, kwarg0=None, kwarg1=1):
+        pass
+
+    @staticmethod
+    def _test_static_method(arg0, arg1, kwarg0=None, kwarg1=1):
+        pass
 
 class TestMasquerade(object):
     def test_bad_signature(self):
-        f = masquerade(dont_test_me_bro, None)
+        f = masquerade(_test_func, None)
         with pytest.raises(TypeError):
             f(0)
         assert f.calls == []
 
     def test_good_signature(self):
         rv = stub()
-        f = masquerade(dont_test_me_bro, rv)
+        f = masquerade(_test_func, rv)
         assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
 
     def test_good_signature_handles_optional_args(self):
         rv = stub()
-        f = masquerade(dont_test_me_bro, rv)
+        f = masquerade(_test_func, rv)
         assert f(0, 1) is rv
         assert f.calls == [call(0, 1)]
 
-    def assert_callable(self):
-        f = masquerade(dont_test_me_bro, lambda *args, **kwargs: 69)
+    def test_callable(self):
+        f = masquerade(_test_func, lambda *args, **kwargs: 69)
         assert f(0, 1, kwarg0=1, kwarg1=None) == 69
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
->>>>>>> 63d086d (implement a dumb masquerade recorder)
+
+    def test_method(self):
+        rv = stub()
+        f = masquerade(Klass._test_method, rv)
+        assert f(0, 1, kwarg0=1, kwarg1=None) is rv
+        assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
+
+    def test_class_method(self):
+        rv = stub()
+        f = masquerade(Klass._test_class_method, rv)
+        assert f(0, 1, kwarg0=1, kwarg1=None) is rv
+        assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
+
+    def test_static_method(self):
+        rv = stub()
+        f = masquerade(Klass._test_static_method, rv)
+        assert f(0, 1, kwarg0=1, kwarg1=None) is rv
+        assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
