@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from pretend import stub, raiser, call, call_recorder, PY3K
+from pretend import stub, raiser, call, call_recorder
 
 
 class TestStub(object):
@@ -20,7 +20,6 @@ class TestStub(object):
         iterator = iter(x)
         assert next(iterator) == 1
 
-    @pytest.mark.skipif("not PY3K")
     def test_next(self):
         x = stub(__next__=lambda: 12)
         assert next(x) == 12
@@ -29,12 +28,6 @@ class TestStub(object):
         x = stub(__contains__=lambda other: True)
         assert "hello world" in x
 
-    @pytest.mark.skipif("PY3K")
-    def test_nonzero(self):
-        x = stub(__nonzero__=lambda: False)
-        assert not bool(x)
-
-    @pytest.mark.skipif("not PY3K")
     def test_bool(self):
         x = stub(__bool__=lambda: False)
         assert not bool(x)
@@ -71,13 +64,6 @@ class TestStub(object):
         })
         assert func(x, 4) == func(2, 4)
         assert func(x, 2) == func(2, 2)
-
-    @pytest.mark.skipif("PY3K")
-    def test_div(self):
-        x = stub(
-            __div__=lambda y: 4
-        )
-        assert x / 3 == 4
 
     def test_missing_op_error(self):
         x = stub()

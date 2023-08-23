@@ -1,12 +1,9 @@
 import functools
-import sys
 
 
-PY3K = sys.version_info >= (3,)
-
-
-methods = set([
+MAGIC_METHODS = frozenset([
     "__iter__",
+    "__next__",
     "__len__",
     "__contains__",
     "__getitem__",
@@ -37,17 +34,11 @@ methods = set([
     "__truediv__",
     "__xor__",
 
+    "__bool__",
+
     "__call__",
     "__repr__",
 ])
-if PY3K:
-    methods.add("__next__")
-    methods.add("__bool__")
-else:
-    methods.add("__div__")
-    methods.add("__nonzero__")
-MAGIC_METHODS = frozenset(methods)
-del methods
 
 
 def _build_magic_dispatcher(method):
