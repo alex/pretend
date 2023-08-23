@@ -2,7 +2,7 @@ import operator
 
 import pytest
 
-from pretend import stub, raiser, call, call_recorder
+from pretend import stub, raiser, call, call_recorder, masquerade
 
 
 class TestStub(object):
@@ -159,3 +159,24 @@ class TestCallRecorder(object):
         f = call_recorder(lambda *args, **kwargs: 3)
         assert f() == 3
         assert f.calls == [call()]
+
+def dont_test_me_bro(arg0, arg1, kwarg0=None, kwarg1=1):
+    pass
+
+class TestMasquerade(object):
+    def test_bad_signature(self):
+        f = masquerade(dont_test_me_bro, None)
+        with pytest.raises(TypeError):
+            f(0)
+        assert f.calls == []
+
+    def test_good_signature(self):
+        f = masquerade(dont_test_me_bro, None)
+        assert f(0, 1, kwarg0=1, kwarg1=None) is None
+        assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
+
+    def assert_callable(self):
+        f = masquerade(dont_test_me_bro, lambda *args, **kwargs: 69)
+        assert f(0, 1, kwarg0=1, kwarg1=None) == 69
+        assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
+>>>>>>> 63d086d (implement a dumb masquerade recorder)

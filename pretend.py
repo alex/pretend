@@ -1,4 +1,5 @@
 import functools
+import inspect
 
 
 MAGIC_METHODS = frozenset(
@@ -113,5 +114,15 @@ def call_recorder(func):
         inner.calls.append(call(*args, **kwargs))
         return func(*args, **kwargs)
 
+    inner.calls = []
+    return inner
+
+
+def masquerade(func, result):
+    @functools.wraps(func)
+    def inner(*args, **kwargs):
+        inspect.signature(func).bind(*args, **kwargs)
+        inner.calls.append(call(*args, **kwargs))
+        return result if not callable(result) else result(*args, **kwargs)
     inner.calls = []
     return inner
