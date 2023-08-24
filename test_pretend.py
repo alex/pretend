@@ -36,32 +36,32 @@ class TestStub(object):
         x = stub(__len__=lambda: 12)
         assert len(x) == 12
 
-    @pytest.mark.parametrize(("func", "op"), [
-        (operator.lt, "__lt__"),
-        (operator.le, "__le__"),
-        (operator.eq, "__eq__"),
-        (operator.ne, "__ne__"),
-        (operator.gt, "__gt__"),
-        (operator.ge, "__ge__"),
-
-        (operator.add, "__add__"),
-        (operator.and_, "__and__"),
-        (divmod, "__divmod__"),
-        (operator.floordiv, "__floordiv__"),
-        (operator.lshift, "__lshift__"),
-        (operator.mod, "__mod__"),
-        (operator.mul, "__mul__"),
-        (operator.or_, "__or__"),
-        (operator.pow, "__pow__"),
-        (operator.rshift, "__rshift__"),
-        (operator.sub, "__sub__"),
-        (operator.truediv, "__truediv__"),
-        (operator.xor, "__xor__"),
-    ])
+    @pytest.mark.parametrize(
+        ("func", "op"),
+        [
+            (operator.lt, "__lt__"),
+            (operator.le, "__le__"),
+            (operator.eq, "__eq__"),
+            (operator.ne, "__ne__"),
+            (operator.gt, "__gt__"),
+            (operator.ge, "__ge__"),
+            (operator.add, "__add__"),
+            (operator.and_, "__and__"),
+            (divmod, "__divmod__"),
+            (operator.floordiv, "__floordiv__"),
+            (operator.lshift, "__lshift__"),
+            (operator.mod, "__mod__"),
+            (operator.mul, "__mul__"),
+            (operator.or_, "__or__"),
+            (operator.pow, "__pow__"),
+            (operator.rshift, "__rshift__"),
+            (operator.sub, "__sub__"),
+            (operator.truediv, "__truediv__"),
+            (operator.xor, "__xor__"),
+        ],
+    )
     def test_special_binops(self, func, op):
-        x = stub(**{
-            op: lambda y: func(2, y)
-        })
+        x = stub(**{op: lambda y: func(2, y)})
         assert func(x, 4) == func(2, 4)
         assert func(x, 2) == func(2, 2)
 
@@ -71,34 +71,27 @@ class TestStub(object):
             x + 2
 
     def test_subscript(self):
-        x = stub(
-            __getitem__=lambda idx: idx
-        )
+        x = stub(__getitem__=lambda idx: idx)
         assert x[5] == 5
         assert x[1, 2] == (1, 2)
 
     def test_setitem(self):
         d = {}
-        x = stub(
-            __setitem__=d.__setitem__
-        )
-        x[5] = 'a'
-        x['b'] = 6
-        assert d == {5: 'a', 'b': 6}
+        x = stub(__setitem__=d.__setitem__)
+        x[5] = "a"
+        x["b"] = 6
+        assert d == {5: "a", "b": 6}
 
     def test_delitem(self):
-        d = {5: 'a', 'b': 6}
-        x = stub(
-            __delitem__=d.__delitem__
-        )
-        del x['b']
-        assert d == {5: 'a'}
+        d = {5: "a", "b": 6}
+        x = stub(__delitem__=d.__delitem__)
+        del x["b"]
+        assert d == {5: "a"}
 
     def test_context_manager(self):
         should_reraise = True
         x = stub(
-            __enter__=lambda: 3,
-            __exit__=lambda exc_type, exc_value, tb: should_reraise
+            __enter__=lambda: 3, __exit__=lambda exc_type, exc_value, tb: should_reraise
         )
         with x as value:
             assert value == 3
@@ -115,10 +108,10 @@ class TestStub(object):
         assert repr(x) == "<stub(a=10)>"
 
     def test_custom_repr(self):
-        x = stub(id=300, __repr__=lambda: '<Something>')
+        x = stub(id=300, __repr__=lambda: "<Something>")
 
         assert x.id == 300
-        assert repr(x) == '<Something>'
+        assert repr(x) == "<Something>"
 
     def test_callable(self):
         x = stub(__call__=lambda: 4)
@@ -165,6 +158,4 @@ class TestCallRecorder(object):
     def test_simple(self):
         f = call_recorder(lambda *args, **kwargs: 3)
         assert f() == 3
-        assert f.calls == [
-            call()
-        ]
+        assert f.calls == [call()]
