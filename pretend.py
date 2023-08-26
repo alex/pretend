@@ -108,11 +108,13 @@ class call(object):
         return "<call(%s%s%s)>" % (args, comma, kwargs)
 
 
-def call_recorder(func, real=None):
+def call_recorder(func, real_func=None, real_method=None):
     @functools.wraps(func)
     def inner(*args, **kwargs):
-        if real is not None:
-            inspect.signature(real).bind(*args, **kwargs)
+        if real_func is not None:
+            inspect.signature(real_func).bind(*args, **kwargs)
+        if real_method is not None:
+            inspect.signature(real_method).bind_partial(None)
         inner.calls.append(call(*args, **kwargs))
         return func(*args, **kwargs)
 

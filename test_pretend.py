@@ -180,42 +180,42 @@ class Klass:
 
 class TestSignature(object):
     def test_bad_signature(self):
-        f = call_recorder(lambda *a, **kw: None, real=_test_func)
+        f = call_recorder(lambda *a, **kw: None, real_func=_test_func)
         with pytest.raises(TypeError):
             f(0)
         assert f.calls == []
 
     def test_good_signature(self):
         rv = stub()
-        f = call_recorder(lambda *a, **kw: rv, real=_test_func)
+        f = call_recorder(lambda *a, **kw: rv, real_func=_test_func)
         assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
 
     def test_good_signature_handles_optional_args(self):
         rv = stub()
-        f = call_recorder(lambda *a, **kw: rv, real=_test_func)
+        f = call_recorder(lambda *a, **kw: rv, real_func=_test_func)
         assert f(0, 1) is rv
         assert f.calls == [call(0, 1)]
 
     def test_callable(self):
-        f = call_recorder(lambda *a, **kw: 69, real=_test_func)
+        f = call_recorder(lambda *a, **kw: 69, real_func=_test_func)
         assert f(0, 1, kwarg0=1, kwarg1=None) == 69
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
 
     def test_method(self):
         rv = stub()
-        f = call_recorder(lambda *a, **kw: rv, real=Klass._test_method)
+        f = call_recorder(lambda *a, **kw: rv, real_method=Klass._test_method)
         assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
 
     def test_class_method(self):
         rv = stub()
-        f = call_recorder(lambda *a, **kw: rv, real=Klass._test_method)
+        f = call_recorder(lambda *a, **kw: rv, real_method=Klass._test_class_method)
         assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
 
     def test_static_method(self):
         rv = stub()
-        f = call_recorder(lambda *a, **kw: rv, real=Klass._test_method)
+        f = call_recorder(lambda *a, **kw: rv, real_method=Klass._test_static_method)
         assert f(0, 1, kwarg0=1, kwarg1=None) is rv
         assert f.calls == [call(0, 1, kwarg0=1, kwarg1=None)]
