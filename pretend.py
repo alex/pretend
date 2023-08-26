@@ -121,11 +121,9 @@ def call_recorder(func):
 def masquerade(func, result):
     @functools.wraps(func)
     def inner(*args, **kwargs):
-        if PY3K:
-            inspect.signature(func).bind(*args, **kwargs)
-        else:
-            inspect.getcallargs(func, *args, **kwargs)
+        inspect.signature(func).bind(*args, **kwargs)
         inner.calls.append(call(*args, **kwargs))
         return result if not callable(result) else result(*args, **kwargs)
+
     inner.calls = []
     return inner
