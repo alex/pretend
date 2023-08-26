@@ -108,22 +108,13 @@ class call(object):
         return "<call(%s%s%s)>" % (args, comma, kwargs)
 
 
-def call_recorder(func):
+def call_recorder(func, real=None):
     @functools.wraps(func)
     def inner(*args, **kwargs):
+        if real is not None:
+            inspect.signature(real).bind(*args, **kwargs)
         inner.calls.append(call(*args, **kwargs))
         return func(*args, **kwargs)
-
-    inner.calls = []
-    return inner
-
-
-def masquerade(func, result):
-    @functools.wraps(func)
-    def inner(*args, **kwargs):
-        inspect.signature(func).bind(*args, **kwargs)
-        inner.calls.append(call(*args, **kwargs))
-        return result if not callable(result) else result(*args, **kwargs)
 
     inner.calls = []
     return inner
