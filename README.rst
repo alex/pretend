@@ -1,9 +1,6 @@
 pretend
 =======
 
-.. image:: https://secure.travis-ci.org/alex/pretend.png
-    :target: https://travis-ci.org/alex/pretend
-
 Pretend is a library to make stubbing with Python easier.
 
 What is stubbing?
