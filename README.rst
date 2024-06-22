@@ -88,7 +88,7 @@ method to put a mock in place. ``pretend`` doesn't include anything like this,
 a) we believe it's better, where possible, to pass stubs as arguments rather
 than monkey patch them into place, b) we believe that when you do need to
 monkey patch something into place you should use something provided by your
-testing tool. ``py.test`` includes `such a tool`_.
+testing tool. ``pytest`` includes `such a tool`_.
 
 .. _`such a tool`: https://docs.pytest.org/en/latest/monkeypatch.html
 
